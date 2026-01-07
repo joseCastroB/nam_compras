@@ -15,19 +15,23 @@ class PurchaseOrder(models.Model):
         for order in orders:
             base_name = order.name 
 
-            first_product_ref = "NA"
-            if order.order_line:
-                first_line = order.order_line[0]
-                if first_line.product_id and first_line.product_id.default_code:
-                    first_product_ref = first_line.product_id.default_code
-                
+            project_ref = "NA"
+
+            if order.project_id:
+                full_project_name = order.project_id.name or ""
+
+                project_ref = full_project_name.split('/')[0].strip()
+
+                project_ref = project_ref.upper()
+
+
             current_year = datetime.now().strftime('%y')
 
             user_name = self.env.user.name or "Admin"
 
             user_initials = "".join([x[0].upper() for x in user_name.split() if x])
 
-            new_name = f"{base_name}-{first_product_ref}-{current_year}-{user_initials}"
+            new_name = f"{base_name}-{project_ref}-{current_year}-{user_initials}"
 
             order.name = new_name
 
