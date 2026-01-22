@@ -4,7 +4,7 @@
     'category': 'Purchase',
     'summary': 'Secuencia custom y campos de entrega',
     'author': 'Jose Castro',
-    'depends': ['purchase'],
+    'depends': ['purchase', 'project_purchase'],
     'data': [
         'views/purchase_order_view.xml',
     ],
