@@ -27,4 +27,50 @@
 
         </field>
     </record>
+
+    <record id="view_purchase_order_filter_nam" model="ir.ui.view">
+        <field name="name">purchase.order.search.inherit.nam</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="create_uid" string="Creado por"/>
+                <field name="project_id" string="Proyecto"/>
+                <field name="payment_term_id" string="Término de pago"/>
+                <field name="delivery_term" string="Plazo de entrega"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Fecha de creación" name="group_by_create_date" context="{'group_by': 'create_date'}"/>
+                <filter string="Creado por " name="group_by_create_uid" context="{'group_by': 'create_uid'}"/>
+                <filter string="Proyecto" name="group_by_project_id" context="{'group_by': 'project_id'}"/>
+                <filter string="Términos de pago" name="group_by_payment_term_id" context="{'group_by': 'payment_term_id'}"/>
+                <filter string="Plazo de entrega" name="group_by_delivery_term" context="{'group_by': 'delivery_term'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_kpis_tree_nam" model="ir.ui.view">
+        <field name="name">purchase.order.kpis.tree.inherit.nam</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="create_date" string="Fecha de creación" optional="show" widget="date"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="create_uid" string="Creado por" optional="show"/>
+                <field name="project_id" string="Proyecto" optional="show"/>
+            </xpath>
+
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="payment_term_id" string="Términos de pago" optional="show"/>
+                <field name="delivery_term" string="Plazo de entrega" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
